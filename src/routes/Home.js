@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import ToDo from "../components/ToDo";
-import { actionCreators } from "../store";
+// import { actionCreators } from "../store";
+import { add } from "../store";
 
 function Home({ toDos, addToDo, initailData }) {
-  //   console.log(props);
-  const [text, setText] = useState();
+  const [text, setText] = useState("");
   const onChange = (e) => {
     setText(e.target.value);
   };
@@ -16,14 +16,16 @@ function Home({ toDos, addToDo, initailData }) {
     setText("");
   };
 
-  useEffect(() => {
-    if (localStorage.getItem("toDos")) {
-      initailData(JSON.parse(localStorage.getItem("toDos")));
-    }
-  }, [initailData]);
-  useEffect(() => {
-    localStorage.setItem("toDos", JSON.stringify(toDos));
-  }, [toDos]);
+  /*
+    useEffect(() => {
+      if (localStorage.getItem("toDos")) {
+        initailData(JSON.parse(localStorage.getItem("toDos")));
+      }
+    }, [initailData]);
+    useEffect(() => {
+      localStorage.setItem("toDos", JSON.stringify(toDos));
+    }, [toDos]);
+*/
 
   return (
     <>
@@ -50,8 +52,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addToDo: (text) => dispatch(actionCreators.addToDo(text)),
-    initailData: (array) => dispatch(actionCreators.initailData(array)),
+    // addToDo: (text) => dispatch(actionCreators.addToDo(text)),
+    addToDo: (text) => dispatch(add(text)),
+    // initailData: (array) => dispatch(actionCreators.initailData(array)),
   };
 }
 
